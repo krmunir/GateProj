@@ -13,18 +13,18 @@
 #include "openSensor.h"
 
 //pin assignments - Outputs
-#define SLIDING_GATE_CONTROL_PIN 99
-#define RGB_LED_East_R_PIN 99
-#define RGB_LED_East_G_PIN 99
-#define RGB_LED_East_B_PIN 99
-#define RGB_LED_South_R_PIN 99
-#define RGB_LED_South_G_PIN 99
-#define RGB_LED_South_B_PIN 99
-#define BUZZER_PIN 99
+constexpr auto SLIDING_GATE_CONTROL_PIN = 99;
+constexpr auto RGB_LED_East_R_PIN = 99;
+constexpr auto RGB_LED_East_G_PIN = 99;
+constexpr auto RGB_LED_East_B_PIN = 99;
+constexpr auto RGB_LED_South_R_PIN = 99;
+constexpr auto RGB_LED_South_G_PIN = 99;
+constexpr auto RGB_LED_South_B_PIN = 99;
+constexpr auto BUZZER_PIN = 99;
 
 //pin assignments - Inputs
-#define SWING_GATE_East_PIN 99
-#define SWING_GATE_South_PIN 99
+constexpr auto SWING_GATE_East_PIN = 99;
+constexpr auto SWING_GATE_South_PIN = 99;
 
 
 // The setup() function runs once each time the micro-controller starts
