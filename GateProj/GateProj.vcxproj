@@ -112,7 +112,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="distanceSensor.h" />
+    <ClInclude Include="gateControl.h" />
+    <ClInclude Include="led.h" />
+    <ClInclude Include="openSensor.h" />
     <ClInclude Include="__vm\.GateProj.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="distanceSensor.cpp" />
+    <ClCompile Include="gateControl.cpp" />
+    <ClCompile Include="led.cpp" />
+    <ClCompile Include="openSensor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
