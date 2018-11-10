@@ -41,13 +41,18 @@ void setup()
 	//setup swing gate south
 	openSensor swingGateSouthStatus(SWING_GATE_South_PIN);
 	led swingGateSouthLED(RGB_LED_South_R_PIN, RGB_LED_South_G_PIN, RGB_LED_South_B_PIN);
-
+	
+	//for blinking led
+	pinMode(D1, OUTPUT);
 }
 
 
 // Add the main program code into the continuous loop() function
 void loop()
 {
-
+	digitalWrite(D1, HIGH);
+	delay(500);
+	digitalWrite(D1, LOW);
+	delay(500);
 
 }

@@ -11,9 +11,11 @@
 
 class distanceSensor {
 private:
-
+	int m_distance;
+	unsigned short m_readSensor();
 public:
-	distanceSensor() {
+	distanceSensor() : m_distance{ 0 }
+	{
 		Serial.begin(9600);
 	}
 
