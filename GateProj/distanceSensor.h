@@ -12,12 +12,12 @@
 class distanceSensor {
 private:
 	int m_distance;
-	unsigned short m_readSensor();
+	//unsigned short m_readSensor();
 public:
-	distanceSensor() : m_distance{ 0 }
-	{
-		Serial.begin(9600);
-	}
+	distanceSensor() : m_distance{ 0 } 	{}
+	
+	//for testing only
+	unsigned short m_readSensor();
 
 	bool isOpen();
 	bool isClosed();

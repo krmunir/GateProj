@@ -46,5 +46,8 @@ unsigned short distanceSensor::m_readSensor() {
 	//}
 
 	//return atoi(buffer);
+	
+	static unsigned int testVal{ 0 };
+	return testVal++;
 
 }
