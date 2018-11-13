@@ -15,9 +15,6 @@ private:
 	//unsigned short m_readSensor();
 public:
 	distanceSensor() : m_distance{ 0 } 	{}
-	
-	//for testing only
-	unsigned short m_readSensor();
 
 	bool isOpen();
 	bool isClosed();
@@ -25,6 +22,9 @@ public:
 	bool isClosing();
 	bool isHalfOpen();
 	int percent_open();
+
+	//for testing only
+	unsigned short m_readSensor();
 
 };
 

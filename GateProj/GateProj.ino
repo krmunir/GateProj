@@ -7,6 +7,7 @@
 */
 
 //#includes
+#include <SoftwareSerial.h>
 #include "gateControl.h"
 #include "distanceSensor.h"
 #include "led.h"
@@ -25,10 +26,13 @@ constexpr auto BUZZER_PIN = 99;
 //pin assignments - Inputs
 constexpr auto SWING_GATE_East_PIN = 99;
 constexpr auto SWING_GATE_South_PIN = 99;
+extern const uint8_t slidingGateDistanceSensor_RX = D2;
+extern const uint8_t slidingGateDistanceSensor_TX = D4;
 
 //setup sliding gate
 gateControl slidingGate(SLIDING_GATE_CONTROL_PIN);
 distanceSensor slidingGateDistanceSensor;
+extern SoftwareSerial slidingGateDistanceSensorSerial;
 
 //setup swing gate east
 openSensor swingGateEastStatus(SWING_GATE_East_PIN);
@@ -42,7 +46,10 @@ led swingGateSouthLED(RGB_LED_South_R_PIN, RGB_LED_South_G_PIN, RGB_LED_South_B_
 // The setup() function runs once each time the micro-controller starts
 void setup()
 {
-	//start serial
+	//start serial to ultrasonic sensor
+	slidingGateDistanceSensorSerial.begin(9600);
+
+	//start serial for debugging
 	Serial.begin(9600);
 
 	//for blinking led
