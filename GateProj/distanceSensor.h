@@ -12,7 +12,9 @@
 class distanceSensor {
 private:
 	int m_distance;
-	//unsigned short m_readSensor();
+	unsigned short m_readSensor();
+	bool m_isWithin(unsigned short readvalue, unsigned short targetvalue, unsigned short tolerance);
+
 public:
 	distanceSensor() : m_distance{ 0 } 	{}
 
@@ -21,10 +23,11 @@ public:
 	bool isOpening();
 	bool isClosing();
 	bool isHalfOpen();
+	bool isFullyOpen();
 	int percent_open();
 
 	//for testing only
-	unsigned short m_readSensor();
+	//unsigned short m_readSensor();
 
 };
 

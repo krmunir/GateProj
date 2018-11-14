@@ -26,13 +26,21 @@ constexpr auto BUZZER_PIN = 99;
 //pin assignments - Inputs
 constexpr auto SWING_GATE_East_PIN = 99;
 constexpr auto SWING_GATE_South_PIN = 99;
+extern const uint8_t SLIDING_GATE_CLOSED_LS_PIN = 99;
+extern const uint8_t SLIDING_GATE_FULL_OPEN_LS_PIN = 99;
 extern const uint8_t slidingGateDistanceSensor_RX = D2;
 extern const uint8_t slidingGateDistanceSensor_TX = D4;
 
 //setup sliding gate
 gateControl slidingGate(SLIDING_GATE_CONTROL_PIN);
 distanceSensor slidingGateDistanceSensor;
-extern SoftwareSerial slidingGateDistanceSensorSerial;
+extern SoftwareSerial slidingGateDistanceSensorSerial;//forward declaration, definition in distanceSensor.cpp
+
+//setup sliding gate sensor settings
+extern const unsigned short gateClosedReading = 7000;
+extern const unsigned short gateHalfOpenReading = 4500;
+extern const unsigned short gateFullyOpenReading = 1500;
+extern const unsigned short readingTolerance = 50;//for half open only
 
 //setup swing gate east
 openSensor swingGateEastStatus(SWING_GATE_East_PIN);
@@ -48,6 +56,10 @@ void setup()
 {
 	//start serial to ultrasonic sensor
 	slidingGateDistanceSensorSerial.begin(9600);
+
+	//setup limit switches for sliding gate
+	pinMode(SLIDING_GATE_CLOSED_LS_PIN, INPUT);
+	pinMode(SLIDING_GATE_FULL_OPEN_LS_PIN, INPUT);
 
 	//start serial for debugging
 	Serial.begin(9600);
@@ -66,10 +78,4 @@ void loop()
 	digitalWrite(D1, LOW);
 	delay(500);
 
-	//read value and print to serial port
-	unsigned short value{ 0 };
-	value = slidingGateDistanceSensor.m_readSensor();
-	Serial.print("Range = ");
-	Serial.print(value);
-	Serial.println(" mm");
 }
