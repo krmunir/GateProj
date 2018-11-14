@@ -39,34 +39,36 @@ bool distanceSensor::isHalfOpen() {
 unsigned short distanceSensor::m_readSensor() {
 
 
-	char buffer[6];
-	int bytesAvailToRead{ 0 };
-	char charRead;
+	char buffer[5];
+	//int bytesAvailToRead{ 0 };
+	//char charRead;
 
 	// flush and wait for a range reading
 	slidingGateDistanceSensorSerial.flush();
 
-	/*while (!slidingGateDistanceSensorSerial.available() || slidingGateDistanceSensorSerial.read() != 'R');*/
+	//wait for serial to be available and buffer to have contained an 'R'
+	while (!(slidingGateDistanceSensorSerial.available()>0) || slidingGateDistanceSensorSerial.read() != 'R');
 	
-		do
-	{
-		bytesAvailToRead = slidingGateDistanceSensorSerial.available();
-		Serial.print("no of bytes avail to read : ");
-		Serial.println(bytesAvailToRead);
+	//	do
+	//{
+	//	bytesAvailToRead = slidingGateDistanceSensorSerial.available();
+	//	Serial.print("no of bytes avail to read : ");
+	//	Serial.println(bytesAvailToRead);
 
-		charRead = slidingGateDistanceSensorSerial.read();
-		Serial.print("char read : ");
-		Serial.println(charRead);
+	//	charRead = slidingGateDistanceSensorSerial.read();
+	//	Serial.print("char read : ");
+	//	Serial.println(charRead);
 
-		yield();//poll background tasks and reset watchdog, prevents soft WDT reset errors
-	} while (true);
+	//	yield();//poll background tasks and reset watchdog, prevents soft WDT reset errors
+	//} while (true);
 
 	// read the range
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 4; i++) {
 		while (!slidingGateDistanceSensorSerial.available());
 
 		buffer[i] = slidingGateDistanceSensorSerial.read();
 	}
+	buffer[4] = '\0'; //null terminate string
 
 	return atoi(buffer);
 	
