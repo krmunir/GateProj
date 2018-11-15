@@ -35,11 +35,14 @@ bool distanceSensor::isClosed() {
 }
 
 int distanceSensor::percent_open() {
-
+	return (m_readSensor() - gateFullyOpenReading) / (gateClosedReading - gateFullyOpenReading) * 100;
 }
 
 bool distanceSensor::isOpening() {
+	do
+	{
 
+	} while (true);
 }
 
 bool distanceSensor::isClosing() {
@@ -90,3 +93,27 @@ bool distanceSensor::m_isWithin(unsigned short readvalue, unsigned short targetv
 	else
 		return false;
 }
+
+void distanceSensor::statusCheckStateMachine() {
+	//check and update value of m_gateStatus
+
+	if ()
+		m_gateStatus = IS_CLOSED;
+	else if ()
+		m_gateStatus = IS_FULLY_OPEN
+	else if ()
+		m_gateStatus = IS_FULLY_OPEN
+	else if ()
+		m_gateStatus = IS_FULLY_OPEN
+	else if ()
+		m_gateStatus = IS_FULLY_OPEN
+	else if ()
+		m_gateStatus = IS_FULLY_OPEN
+	else if ()
+
+
+
+}
+
+
+
