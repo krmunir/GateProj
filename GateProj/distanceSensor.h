@@ -14,21 +14,10 @@ private:
 	int m_distance;
 	unsigned short m_readSensor();
 	bool m_isWithin(unsigned short readvalue, unsigned short targetvalue, unsigned short tolerance);
-	enum status {
-		IS_OPEN,
-		IS_CLOSED,
-		IS_OPENING,
-		IS_CLOSING,
-		IS_HALF_OPEN,
-		IS_FULLY_OPEN,
-		UNDEFINED
-	} m_gateStatus;
 
 public:
 	distanceSensor() : m_distance{ 0 }, m_gateStatus{ UNDEFINED } 	{}
 	
-	void statusCheckStateMachine();
-
 	bool isOpen();
 	bool isClosed();
 	bool isOpening();

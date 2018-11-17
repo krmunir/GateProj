@@ -4,6 +4,7 @@
 
 #include "distanceSensor.h"
 #include <SoftwareSerial.h>
+#include "utilities.h"
 
 //need to access these constants defined in GateProj.ino
 extern const uint8_t slidingGateDistanceSensor_RX;
@@ -16,7 +17,7 @@ extern const unsigned short gateFullyOpenReading;
 extern const unsigned short readingTolerance;
 
 //need to provide access to these outside of this file
-extern SoftwareSerial slidingGateDistanceSensorSerial(slidingGateDistanceSensor_RX, slidingGateDistanceSensor_TX,true); //sig from sensor is inverted
+extern SoftwareSerial slidingGateDistanceSensorSerial(slidingGateDistanceSensor_RX, slidingGateDistanceSensor_TX, true); //sig from sensor is inverted
 
 
 bool distanceSensor::isOpen() {
@@ -39,10 +40,52 @@ int distanceSensor::percent_open() {
 }
 
 bool distanceSensor::isOpening() {
-	do
-	{
+	enum states {
+		INIT,
+		READ_FIRST_VAL,
+		READ_SECOND_VAL
+	};
 
-	} while (true);
+	static bool isOpeningStatus = false;
+	static states state = INIT;
+	constexpr unsigned long waitDelay = 300; //300ms
+	constexpr unsigned short minTravelDistance = 50; //50mm
+	static unsigned short firstReading;
+	static unsigned short secondReading;
+	static bool firstValueRead;
+	intervalTimer waitDelayTimer;
+
+	switch (state)
+	{
+	case INIT:
+		firstValueRead = false;
+		state = READ_FIRST_VAL;
+		break;
+
+	case READ_FIRST_VAL:
+		//read value
+		if (!firstValueRead) {
+			firstReading = m_readSensor();
+			firstValueRead = true;
+			waitDelayTimer.start();
+		}
+		if (waitDelayTimer.timeElapsed(waitDelay))
+			state = READ_SECOND_VAL;
+		break;
+
+	case READ_SECOND_VAL:
+		//check value again after 'waitDelay' millisecs
+		secondReading = m_readSensor();
+		//if first reading - second reading > 'minTravelDistance' then gate is opening
+		if ((firstReading-secondReading) > minTravelDistance)
+			isOpeningStatus=true;
+		else
+			isOpeningStatus=false;
+		state = INIT;
+		break;
+	}
+
+	return isOpeningStatus;
 }
 
 bool distanceSensor::isClosing() {
@@ -50,7 +93,7 @@ bool distanceSensor::isClosing() {
 }
 
 bool distanceSensor::isHalfOpen() {
-	if(m_isWithin(m_readSensor(),gateHalfOpenReading,readingTolerance))
+	if (m_isWithin(m_readSensor(), gateHalfOpenReading, readingTolerance))
 		return true;
 	else
 		return false;
@@ -68,13 +111,13 @@ bool distanceSensor::isFullyOpen() {
 unsigned short distanceSensor::m_readSensor() {
 
 	char buffer[5];
-	
+
 	// flush and wait for a range reading
 	slidingGateDistanceSensorSerial.flush();
 
 	//wait for serial to be available and buffer to have contained an 'R'
-	while (!(slidingGateDistanceSensorSerial.available()>0) || slidingGateDistanceSensorSerial.read() != 'R');
-	
+	while (!(slidingGateDistanceSensorSerial.available() > 0) || slidingGateDistanceSensorSerial.read() != 'R');
+
 	// read the range
 	for (int i = 0; i < 4; i++) {
 		while (!slidingGateDistanceSensorSerial.available());
@@ -94,26 +137,6 @@ bool distanceSensor::m_isWithin(unsigned short readvalue, unsigned short targetv
 		return false;
 }
 
-void distanceSensor::statusCheckStateMachine() {
-	//check and update value of m_gateStatus
-
-	if ()
-		m_gateStatus = IS_CLOSED;
-	else if ()
-		m_gateStatus = IS_FULLY_OPEN
-	else if ()
-		m_gateStatus = IS_FULLY_OPEN
-	else if ()
-		m_gateStatus = IS_FULLY_OPEN
-	else if ()
-		m_gateStatus = IS_FULLY_OPEN
-	else if ()
-		m_gateStatus = IS_FULLY_OPEN
-	else if ()
-
-
-
-}
 
 
 
