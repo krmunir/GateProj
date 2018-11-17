@@ -116,6 +116,7 @@
     <ClInclude Include="gateControl.h" />
     <ClInclude Include="led.h" />
     <ClInclude Include="openSensor.h" />
+    <ClInclude Include="utilities.h" />
     <ClInclude Include="__vm\.GateProj.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +124,7 @@
     <ClCompile Include="gateControl.cpp" />
     <ClCompile Include="led.cpp" />
     <ClCompile Include="openSensor.cpp" />
+    <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
