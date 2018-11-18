@@ -89,7 +89,52 @@ bool distanceSensor::isOpening() {
 }
 
 bool distanceSensor::isClosing() {
+	enum states {
+		INIT,
+		READ_FIRST_VAL,
+		READ_SECOND_VAL
+	};
 
+	static bool isClosingStatus = false;
+	static states state = INIT;
+	constexpr unsigned long waitDelay = 300; //300ms
+	constexpr unsigned short minTravelDistance = 50; //50mm
+	static unsigned short firstReading;
+	static unsigned short secondReading;
+	static bool firstValueRead;
+	intervalTimer waitDelayTimer;
+
+	switch (state)
+	{
+	case INIT:
+		firstValueRead = false;
+		state = READ_FIRST_VAL;
+		break;
+
+	case READ_FIRST_VAL:
+		//read value
+		if (!firstValueRead) {
+			firstReading = m_readSensor();
+			firstValueRead = true;
+			waitDelayTimer.start();
+		}
+		if (waitDelayTimer.timeElapsed(waitDelay))
+			state = READ_SECOND_VAL;
+		break;
+
+	case READ_SECOND_VAL:
+		//check value again after 'waitDelay' millisecs
+		secondReading = m_readSensor();
+		//if second reading - first reading > 'minTravelDistance' then gate is opening
+		if ((secondReading - firstReading) > minTravelDistance)
+			isOpeningStatus = true;
+		else
+			isOpeningStatus = false;
+		state = INIT;
+		break;
+	}
+
+	return isOpeningStatus;
 }
 
 bool distanceSensor::isHalfOpen() {

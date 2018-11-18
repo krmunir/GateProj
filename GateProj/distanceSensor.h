@@ -16,7 +16,7 @@ private:
 	bool m_isWithin(unsigned short readvalue, unsigned short targetvalue, unsigned short tolerance);
 
 public:
-	distanceSensor() : m_distance{ 0 }, m_gateStatus{ UNDEFINED } 	{}
+	distanceSensor() : m_distance{ 0 } 	{}
 	
 	bool isOpen();
 	bool isClosed();
