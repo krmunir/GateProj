@@ -127,14 +127,14 @@ bool distanceSensor::isClosing() {
 		secondReading = m_readSensor();
 		//if second reading - first reading > 'minTravelDistance' then gate is opening
 		if ((secondReading - firstReading) > minTravelDistance)
-			isOpeningStatus = true;
+			isClosingStatus = true;
 		else
-			isOpeningStatus = false;
+			isClosingStatus = false;
 		state = INIT;
 		break;
 	}
 
-	return isOpeningStatus;
+	return isClosingStatus;
 }
 
 bool distanceSensor::isHalfOpen() {
