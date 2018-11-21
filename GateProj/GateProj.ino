@@ -78,5 +78,5 @@ void loop()
 	digitalWrite(D1, LOW);
 	delay(500);
 
-	slidingGateDistanceSensor.statusCheckStateMachine();
+	slidingGateDistanceSensor.checkIfGateMoving();
 }

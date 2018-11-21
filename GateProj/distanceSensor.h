@@ -14,9 +14,13 @@ private:
 	int m_distance;
 	unsigned short m_readSensor();
 	bool m_isWithin(unsigned short readvalue, unsigned short targetvalue, unsigned short tolerance);
+	void m_checkIfClosing();
+	void m_checkIfOpening();
+	bool m_isOpening;
+	bool m_isClosing;
 
 public:
-	distanceSensor() : m_distance{ 0 } 	{}
+	distanceSensor() : m_distance{ 0 }, m_isClosing{ false }, m_isOpening{ false } 	{}
 	
 	bool isOpen();
 	bool isClosed();
@@ -25,7 +29,7 @@ public:
 	bool isHalfOpen();
 	bool isFullyOpen();
 	int percent_open();
-
+	void checkIfGateMoving();
 	//for testing only
 	//unsigned short m_readSensor();
 

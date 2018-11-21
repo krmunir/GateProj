@@ -39,7 +39,7 @@ int distanceSensor::percent_open() {
 	return (m_readSensor() - gateFullyOpenReading) / (gateClosedReading - gateFullyOpenReading) * 100;
 }
 
-bool distanceSensor::isOpening() {
+void distanceSensor::m_checkIfOpening() {
 	enum states {
 		INIT,
 		READ_FIRST_VAL,
@@ -85,10 +85,24 @@ bool distanceSensor::isOpening() {
 		break;
 	}
 
-	return isOpeningStatus;
+	m_isOpening = isOpeningStatus;
+}
+
+bool distanceSensor::isOpening() {
+	if (m_isOpening == true)
+		return true;
+	else
+		return false;
 }
 
 bool distanceSensor::isClosing() {
+	if (m_isClosing == true)
+		return true;
+	else
+		return false;
+}
+
+void distanceSensor::m_checkIfClosing() {
 	enum states {
 		INIT,
 		READ_FIRST_VAL,
@@ -134,7 +148,7 @@ bool distanceSensor::isClosing() {
 		break;
 	}
 
-	return isClosingStatus;
+	m_isClosing = isClosingStatus;
 }
 
 bool distanceSensor::isHalfOpen() {
@@ -182,6 +196,9 @@ bool distanceSensor::m_isWithin(unsigned short readvalue, unsigned short targetv
 		return false;
 }
 
-
+void distanceSensor::checkIfGateMoving() {
+	m_checkIfClosing();
+	m_checkIfOpening();
+}
 
 
