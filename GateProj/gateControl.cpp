@@ -25,5 +25,6 @@ void gateControl::halfOpen() {
 }
 
 void gateControl::stop() {
-
+	if (slidingGateDistanceSensor.isClosing || slidingGateDistanceSensor.isOpening)
+		m_gateButtonPress();//press button to stop only if moving
 }
