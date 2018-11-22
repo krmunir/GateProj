@@ -6,14 +6,33 @@
 	Author:     COHDA\kmunir
 */
 
-//#includes
+/* Comment this out to disable prints and save space */
+#define BLYNK_PRINT Serial
+
+
+/********** #includes **********/
+//software serial
 #include <SoftwareSerial.h>
+
+//WiFi and Blynk
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+//User files
 #include "gateControl.h"
 #include "distanceSensor.h"
 #include "led.h"
 #include "openSensor.h"
 
-//pin assignments - Outputs
+
+/********** Blynk setup **********/
+char auth[] = "YourAuthToken";
+char ssid[] = "YourNetworkName";
+char pass[] = "YourPassword";
+
+
+/********** Pin Assignments **********/
+//Outputs
 constexpr auto SLIDING_GATE_CONTROL_PIN = 99;
 constexpr auto RGB_LED_East_R_PIN = 99;
 constexpr auto RGB_LED_East_G_PIN = 99;
@@ -23,7 +42,7 @@ constexpr auto RGB_LED_South_G_PIN = 99;
 constexpr auto RGB_LED_South_B_PIN = 99;
 constexpr auto BUZZER_PIN = 99;
 
-//pin assignments - Inputs
+//Inputs
 constexpr auto SWING_GATE_East_PIN = 99;
 constexpr auto SWING_GATE_South_PIN = 99;
 extern const uint8_t SLIDING_GATE_CLOSED_LS_PIN = 99;
@@ -31,17 +50,23 @@ extern const uint8_t SLIDING_GATE_FULL_OPEN_LS_PIN = 99;
 extern const uint8_t slidingGateDistanceSensor_RX = D2;
 extern const uint8_t slidingGateDistanceSensor_TX = D4;
 
-//setup sliding gate
+
+/********** Sliding Gate setup **********/
+//gate control 
 gateControl slidingGate(SLIDING_GATE_CONTROL_PIN);
+
+//ultrasonic sensor
 distanceSensor slidingGateDistanceSensor;
 extern SoftwareSerial slidingGateDistanceSensorSerial;//forward declaration, definition in distanceSensor.cpp
 
-//setup sliding gate sensor settings
+//sensor settings
 extern const unsigned short gateClosedReading = 7000;
 extern const unsigned short gateHalfOpenReading = 4500;
 extern const unsigned short gateFullyOpenReading = 1500;
 extern const unsigned short readingTolerance = 50;//for half open only
 
+
+/********** Swing Gate setup **********/
 //setup swing gate east
 openSensor swingGateEastStatus(SWING_GATE_East_PIN);
 led swingGateEastLED(RGB_LED_East_R_PIN, RGB_LED_East_G_PIN, RGB_LED_East_B_PIN);
@@ -64,6 +89,9 @@ void setup()
 	//start serial for debugging
 	Serial.begin(9600);
 
+	//start Blynk
+	Blynk.begin(auth, ssid, pass);
+
 	//for blinking led
 	pinMode(D1, OUTPUT);
 }
@@ -72,6 +100,9 @@ void setup()
 // Add the main program code into the continuous loop() function
 void loop()
 {
+	//run Blynk
+	Blynk.run();
+	
 	//blink LED to indicate program running
 	digitalWrite(D1, HIGH);
 	delay(500);

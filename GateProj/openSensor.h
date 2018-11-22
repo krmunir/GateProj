@@ -9,7 +9,7 @@
 	#include "WProgram.h"
 #endif
 
-class openSensor {
+class openSensor { 
 private:
 	int m_inputPin = 0;
 
