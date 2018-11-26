@@ -1,4 +1,5 @@
 #include "utilities.h"
+#include "Arduino.h"
 
 intervalTimer::intervalTimer() : m_startTime{ 0 } {
 }

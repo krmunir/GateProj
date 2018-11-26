@@ -56,7 +56,7 @@ extern const uint8_t slidingGateDistanceSensor_TX = D4;
 gateControl slidingGate(SLIDING_GATE_CONTROL_PIN);
 
 //ultrasonic sensor
-distanceSensor slidingGateDistanceSensor;
+extern distanceSensor slidingGateDistanceSensor;
 extern SoftwareSerial slidingGateDistanceSensorSerial;//forward declaration, definition in distanceSensor.cpp
 
 //sensor settings
