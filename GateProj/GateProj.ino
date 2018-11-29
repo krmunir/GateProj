@@ -37,6 +37,15 @@ BlynkTimer timer; //used to periodically push data to Blynk app
 
 /********** appWidgets **********/
 Led isOpenLED;
+Led::Param isOpenLEDconfig[Led::NUM_STATES];
+isOpenLEDconfig[Led::OFF].brightness = 0;
+isOpenLEDconfig[OFF].colour = configSetup[OFF].colour;
+isOpenLEDconfig[ON].brightness = configSetup[ON].brightness;
+isOpenLEDconfig[ON].colour = configSetup[ON].colour;
+
+
+
+
 Led isHalfOpenLED;
 Led isClosedLED;
 Button FullOpenBtn;

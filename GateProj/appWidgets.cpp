@@ -2,13 +2,9 @@
 #include <BlynkSimpleEsp8266.h>
 
 
-Led::Led() {
+Led::Led() : m_currState{ OFF } {}
 
-}
-
-Led::~Led() {
-
-}
+Led::~Led() {}
 
 void Led::setup(Param configSetup[]) {
 	m_config[OFF].brightness = configSetup[OFF].brightness;
@@ -18,16 +14,12 @@ void Led::setup(Param configSetup[]) {
 }
 
 void Led::changeStateTo(State newState) {
-
+	m_currState = newState;
 }
 
-Button::Button() {
+Button::Button() : m_currState{ IDLE } {}
 
-}
-
-Button::~Button() {
-
-}
+Button::~Button() {}
 
 void Button::setup(Param configSetup[]) {
 	m_config[IDLE].onLblText = configSetup[IDLE].onLblText;
@@ -39,17 +31,13 @@ void Button::setup(Param configSetup[]) {
 }
 
 void Button::changeStateTo(State newState) {
-
+	m_currState = newState;
 }
 
 
-StyledButton::StyledButton() {
+StyledButton::StyledButton() : m_currState{ IDLE } {}
 
-}
-
-StyledButton::~StyledButton() {
-
-}
+StyledButton::~StyledButton() {}
 
 void StyledButton::setup(Param configSetup[]) {
 	m_config[IDLE].offLblText = configSetup[IDLE].offLblText;
@@ -79,6 +67,6 @@ void StyledButton::setup(Param configSetup[]) {
 }
 
 void StyledButton::changeStateTo(State newState) {
-
+	m_currState = newState;
 }
 
