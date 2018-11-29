@@ -11,15 +11,16 @@
 
 
 /********** #includes **********/
+//System
+#include <string>
+#include <iostream>
+
 //software serial
 #include <SoftwareSerial.h>
 
 //WiFi and Blynk
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
-
-//Other system
-#include <string>
 
 //User files
 #include "gateControl.h"
@@ -36,9 +37,14 @@ char pass[] = "YourPassword";
 BlynkTimer timer; //used to periodically push data to Blynk app
 
 /********** appWidgets **********/
-Led isOpenLED;
-Led::Param isOpenLEDconfig[Led::NUM_STATES];
-isOpenLEDconfig[Led::OFF].brightness = 0;
+//Led isOpenLED;
+//int isOpenLEDconfig[4];
+//isOpenLEDconfig[1] = 9;
+
+int prime[5];
+prime[2] = 4;
+
+isOpenLEDconfig[Led::OFF] = 0;
 isOpenLEDconfig[OFF].colour = configSetup[OFF].colour;
 isOpenLEDconfig[ON].brightness = configSetup[ON].brightness;
 isOpenLEDconfig[ON].colour = configSetup[ON].colour;
