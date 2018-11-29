@@ -16,7 +16,17 @@ private:
 	void m_changeDirection();
 
 public:
-	gateControl(int outputPinNo) :m_outputPinNo{ outputPinNo }
+	enum command {
+		NONE,
+		FULL_OPEN,
+		HALF_OPEN,
+		FULL_CLOSE,
+		STOP
+	};
+
+	command currCommand;
+
+	gateControl(int outputPinNo) : m_outputPinNo{ outputPinNo }, currCommand{NONE}
 	{
 		pinMode(m_outputPinNo, OUTPUT);
 	}
@@ -24,7 +34,7 @@ public:
 	void fullOpen();
 	void fullClose();
 	void halfOpen();
-	void stop(); //is this required??
+	void stop();
 
 
 };

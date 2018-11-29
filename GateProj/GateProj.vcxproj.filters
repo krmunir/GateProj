@@ -36,6 +36,9 @@
     <ClInclude Include="utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="appWidgets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="distanceSensor.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="appWidgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -112,6 +112,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="appWidgets.h" />
     <ClInclude Include="distanceSensor.h" />
     <ClInclude Include="gateControl.h" />
     <ClInclude Include="led.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="__vm\.GateProj.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="appWidgets.cpp" />
     <ClCompile Include="distanceSensor.cpp" />
     <ClCompile Include="gateControl.cpp" />
     <ClCompile Include="led.cpp" />

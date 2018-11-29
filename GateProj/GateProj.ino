@@ -18,11 +18,15 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 
+//Other system
+#include <string>
+
 //User files
 #include "gateControl.h"
 #include "distanceSensor.h"
 #include "led.h"
 #include "openSensor.h"
+#include "appWidgets.h"
 
 
 /********** Blynk setup **********/
@@ -30,6 +34,15 @@ char auth[] = "YourAuthToken";
 char ssid[] = "YourNetworkName";
 char pass[] = "YourPassword";
 BlynkTimer timer; //used to periodically push data to Blynk app
+
+/********** appWidgets **********/
+Led isOpenLED;
+Led isHalfOpenLED;
+Led isClosedLED;
+Button FullOpenBtn;
+Button HalfOpenBtn;
+Button FullCloseBtn;
+StyledButton StatusBtn;
 
 /********** Pin Assignments **********/
 //Outputs
@@ -74,6 +87,7 @@ led swingGateEastLED(RGB_LED_East_R_PIN, RGB_LED_East_G_PIN, RGB_LED_East_B_PIN)
 //setup swing gate south
 openSensor swingGateSouthStatus(SWING_GATE_South_PIN);
 led swingGateSouthLED(RGB_LED_South_R_PIN, RGB_LED_South_G_PIN, RGB_LED_South_B_PIN);
+
 
 
 /********** Main Program Forward Declarations **********/
@@ -150,37 +164,19 @@ void pushBlynkDataToApp() //this fn is called periodically based on interval set
 /********** Read Data from app **********/
 BLYNK_WRITE(V0) {
 	//virtual pin 0 - Pushbutton 'Fully Open'
-
+	slidingGate.currCommand = gateControl::FULL_OPEN;
 
 }
 
 BLYNK_WRITE(V1) {
 	//virtual pin 1 - Pushbutton 'Half Open'
-
+	slidingGate.currCommand = gateControl::HALF_OPEN;
 
 }
 
 BLYNK_WRITE(V2) {
 	//virtual pin 2 - Pushbutton 'Fully Close'
-
-
-}
-
-BLYNK_WRITE(V3) {
-	//virtual pin 3 - LED 'isOpen'
-
-
-}
-
-BLYNK_WRITE(V4) {
-	//virtual pin 4 - LED 'isClosed'
-
-
-}
-
-BLYNK_WRITE(V5) {
-	//virtual pin 5 - LED 'isHalfOpen'
-
+	slidingGate.currCommand = gateControl::FULL_CLOSE;
 
 }
 
@@ -190,17 +186,37 @@ BLYNK_WRITE(V6) {
 
 }
 
-BLYNK_WRITE(V7) {
-	//virtual pin 7 - Bar chart 'Gate Position'
 
-
-}
-
-BLYNK_WRITE(V8) {
-	//virtual pin 8 - Terminal Input and Output
-
-
-}
-
+//
+//BLYNK_WRITE(V3) {
+//	//virtual pin 3 - LED 'isOpen'
+//
+//
+//}
+//
+//BLYNK_WRITE(V4) {
+//	//virtual pin 4 - LED 'isClosed'
+//
+//
+//}
+//
+//BLYNK_WRITE(V5) {
+//	//virtual pin 5 - LED 'isHalfOpen'
+//
+//
+//}
+//
+//BLYNK_WRITE(V7) {
+//	//virtual pin 7 - Bar chart 'Gate Position'
+//
+//
+//}
+//
+//BLYNK_WRITE(V8) {
+//	//virtual pin 8 - Terminal Input and Output
+//
+//
+//}
+//
 
 
