@@ -10,7 +10,7 @@ void intervalTimer::start() {
 }
 
 //max delay settable = 2^32 milliseconds = 49 days
-bool intervalTimer::timeElapsed(unsigned long delay) {
+bool intervalTimer::timeHasElapsed(unsigned long delay) {
 	if ((millis() - m_startTime) > delay)
 		return true;
 	else

@@ -69,7 +69,7 @@ void distanceSensor::m_checkIfOpening() {
 			firstValueRead = true;
 			waitDelayTimer.start();
 		}
-		if (waitDelayTimer.timeElapsed(waitDelay))
+		if (waitDelayTimer.timeHasElapsed(waitDelay))
 			state = READ_SECOND_VAL;
 		break;
 
@@ -132,7 +132,7 @@ void distanceSensor::m_checkIfClosing() {
 			firstValueRead = true;
 			waitDelayTimer.start();
 		}
-		if (waitDelayTimer.timeElapsed(waitDelay))
+		if (waitDelayTimer.timeHasElapsed(waitDelay))
 			state = READ_SECOND_VAL;
 		break;
 

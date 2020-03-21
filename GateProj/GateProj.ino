@@ -37,21 +37,7 @@ char pass[] = "YourPassword";
 BlynkTimer timer; //used to periodically push data to Blynk app
 
 /********** appWidgets **********/
-//Led isOpenLED;
-//int isOpenLEDconfig[4];
-//isOpenLEDconfig[1] = 9;
-
-int prime[5];
-prime[2] = 4;
-
-isOpenLEDconfig[Led::OFF] = 0;
-isOpenLEDconfig[OFF].colour = configSetup[OFF].colour;
-isOpenLEDconfig[ON].brightness = configSetup[ON].brightness;
-isOpenLEDconfig[ON].colour = configSetup[ON].colour;
-
-
-
-
+Led isOpenLED;
 Led isHalfOpenLED;
 Led isClosedLED;
 Button FullOpenBtn;
@@ -81,7 +67,7 @@ extern const uint8_t slidingGateDistanceSensor_TX = D4;
 
 /********** Sliding Gate setup **********/
 //gate control 
-gateControl slidingGate(SLIDING_GATE_CONTROL_PIN);
+gateControl slidingGate(SLIDING_GATE_CONTROL_PIN); //TODO: should this be extern?
 
 //ultrasonic sensor
 extern distanceSensor slidingGateDistanceSensor;
@@ -107,12 +93,15 @@ led swingGateSouthLED(RGB_LED_South_R_PIN, RGB_LED_South_G_PIN, RGB_LED_South_B_
 
 /********** Main Program Forward Declarations **********/
 void pushBlynkDataToApp();
-
+void setupLEDs();
 
 /********** Main Program Code **********/
 // The setup() function runs once each time the micro-controller starts
 void setup()
 {
+	//setup LEDs
+	setupLEDs();
+	
 	//start serial to ultrasonic sensor
 	slidingGateDistanceSensorSerial.begin(9600);
 
@@ -147,6 +136,19 @@ void loop()
 
 	slidingGateDistanceSensor.checkIfGateMoving(); //updates isOpening and isClosing status
 }
+
+/********** Setup LEDs ************/
+void setupLEDs() {
+	//isOpenLED
+	int isOpenLEDconfig[4];
+	isOpenLEDconfig[Led::OFF] = 0;
+	isOpenLEDconfig[Led::ON].brightness = configSetup[ON].brightness;
+	isOpenLEDconfig[Led::OFF].colour = configSetup[OFF].colour;
+	isOpenLEDconfig[Led::ON].colour = configSetup[ON].colour;
+
+}
+
+
 
 /********** Write Data to app **********/
 void pushBlynkDataToApp() //this fn is called periodically based on interval set for 'Blynktimer timer' 
