@@ -19,7 +19,6 @@ extern const unsigned short readingTolerance;
 //need to provide access to these outside of this file
 extern SoftwareSerial slidingGateDistanceSensorSerial(slidingGateDistanceSensor_RX, slidingGateDistanceSensor_TX, true); //sig from sensor is inverted
 
-int x;
 
 bool distanceSensor::isOpen() {
 	if (!isClosed())
